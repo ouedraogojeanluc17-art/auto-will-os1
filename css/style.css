@@ -1,0 +1,154 @@
+/* AUTO WILL OS V1 — écran d'accueil, pensé pour 1280x720 (paysage) */
+
+:root {
+  --accent: #3b82f6;
+  --bg: #0b0f1a;
+  --bg2: #141b2d;
+  --card: #18213a;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="day"] {
+  --bg: #e8edf5;
+  --bg2: #ffffff;
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #475569;
+  --border: rgba(15, 23, 42, 0.1);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  user-select: none;
+}
+
+#screen {
+  width: 100vw;
+  height: 100vh;
+  padding: 2.4vh 2vw;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(120% 90% at 85% 0%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%),
+    var(--bg);
+}
+
+/* Barre du haut */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 8vh;
+}
+
+.brand {
+  font-size: 3.6vh;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+.brand span { color: var(--accent); }
+.brand small { font-size: 2vh; color: var(--muted); letter-spacing: 0.05em; margin-left: 0.5vw; }
+
+.controls { display: flex; align-items: center; gap: 1.6vw; }
+
+.accents { display: flex; gap: 0.9vw; }
+.accents button {
+  width: 4.6vh;
+  height: 4.6vh;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  padding: 0;
+  cursor: pointer;
+}
+.accents button.active { border-color: var(--text); }
+
+#themeBtn, #navBtn {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 2vh;
+  font-size: 2.4vh;
+  padding: 1.4vh 2vw;
+  cursor: pointer;
+}
+#themeBtn:active, #navBtn:active { transform: scale(0.97); }
+
+/* Grille principale */
+.grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 34% 1fr;
+  gap: 2vw;
+  min-height: 0;
+}
+
+.left { display: flex; flex-direction: column; gap: 2vh; min-height: 0; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 3vh;
+  padding: 3vh 2vw;
+}
+
+.clock { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+#greeting { font-size: 3vh; color: var(--accent); font-weight: 700; }
+#time { font-size: 14vh; font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; }
+#date { font-size: 3vh; color: var(--muted); text-transform: capitalize; }
+
+.hint { display: flex; flex-direction: column; gap: 1.6vh; }
+.hint-title { font-size: 2.2vh; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+.hint button { background: var(--accent); color: #fff; border: 0; font-weight: 700; }
+
+/* Applications */
+.apps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1.6vw;
+  min-height: 0;
+}
+
+.tile {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 3vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6vh;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 2.8vh;
+  font-weight: 600;
+  transition: transform 0.12s, background 0.12s;
+}
+.tile .ico { font-size: 8vh; line-height: 1; }
+.tile:active { transform: scale(0.96); background: color-mix(in srgb, var(--accent) 30%, var(--card)); }
+
+/* Message temporaire */
+#toast {
+  position: fixed;
+  left: 50%;
+  bottom: 4vh;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--text);
+  color: var(--bg);
+  padding: 1.6vh 2.4vw;
+  border-radius: 2vh;
+  font-size: 2.4vh;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }

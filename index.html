@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>AUTO WILL OS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="screen">
+    <header class="topbar">
+      <div class="brand">AUTO WILL <span>OS</span> <small>V1</small></div>
+      <div class="controls">
+        <div class="accents" id="accents" aria-label="Couleur d'ambiance"></div>
+        <button id="themeBtn" type="button">Auto</button>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="left">
+        <div class="card clock">
+          <div id="greeting">Bonjour</div>
+          <div id="time">--:--</div>
+          <div id="date"></div>
+        </div>
+        <div class="card hint">
+          <div class="hint-title">Raccourci rapide</div>
+          <button id="navBtn" type="button">Lancer la navigation</button>
+        </div>
+      </section>
+
+      <nav class="apps" id="apps" aria-label="Applications"></nav>
+    </main>
+
+    <div id="toast" role="status"></div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
