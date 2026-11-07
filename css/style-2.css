@@ -1,0 +1,170 @@
+/* AUTO WILL OS V2 — pensé pour 1280x720 (paysage) */
+
+:root {
+  --accent: #3b82f6;
+  --bg: #0b0f1a;
+  --card: #18213a;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="day"] {
+  --bg: #e8edf5;
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: rgba(15, 23, 42, 0.12);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  user-select: none;
+}
+
+#screen {
+  width: 100vw;
+  height: 100vh;
+  padding: 2vh 1.6vw;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(120% 90% at 85% 0%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%),
+    var(--bg);
+}
+
+/* Barre du haut */
+.topbar { display: flex; align-items: center; justify-content: space-between; height: 7vh; margin-bottom: 1.4vh; }
+.brand { font-size: 3.4vh; font-weight: 800; letter-spacing: 0.12em; }
+.brand span { color: var(--accent); }
+.brand small { font-size: 1.8vh; color: var(--muted); margin-left: 0.5vw; }
+.controls { display: flex; align-items: center; gap: 1.4vw; }
+
+.accents { display: flex; gap: 0.8vw; }
+.accents button {
+  width: 4.2vh; height: 4.2vh; border-radius: 50%;
+  border: 3px solid transparent; padding: 0; cursor: pointer;
+}
+.accents button.active { border-color: var(--text); }
+
+button { font-family: inherit; }
+#themeBtn, #demoBtn {
+  background: var(--card); color: var(--text);
+  border: 1px solid var(--border); border-radius: 2vh;
+  font-size: 2.2vh; padding: 1.1vh 1.6vw; cursor: pointer;
+}
+#demoBtn.on { background: var(--accent); color: #fff; }
+
+/* Grille principale */
+.main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 28% 1fr 31%;
+  gap: 1.4vw;
+  min-height: 0;
+  margin-bottom: 1.6vh;
+}
+.col { display: flex; flex-direction: column; gap: 1.6vh; min-height: 0; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 2.6vh;
+  padding: 2vh 1.4vw;
+  min-height: 0;
+}
+.label { font-size: 1.9vh; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+.small { font-size: 2vh; color: var(--muted); }
+
+/* Horloge */
+.clock { flex: 0 0 auto; }
+#greeting { font-size: 2.6vh; color: var(--accent); font-weight: 700; }
+#time { font-size: 10vh; font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; }
+#date { font-size: 2.4vh; color: var(--muted); text-transform: capitalize; }
+
+/* Vitesse */
+.speed { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.speed-row { display: flex; align-items: baseline; gap: 0.8vw; }
+#speed { font-size: 17vh; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.unit { font-size: 3vh; color: var(--muted); font-weight: 600; }
+
+/* Véhicule */
+.car { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 1vh; }
+#carSvg { flex: 1; min-height: 0; max-width: 100%; }
+.status { font-size: 2.2vh; text-align: center; color: var(--muted); }
+.status.alert { color: #f87171; font-weight: 700; }
+
+#carSvg .body { fill: var(--card); stroke: var(--muted); stroke-width: 3; }
+#carSvg .cabin { fill: color-mix(in srgb, var(--accent) 28%, transparent); }
+#carSvg .part { fill: color-mix(in srgb, var(--muted) 35%, transparent); transition: fill 0.25s; }
+#carSvg .part.open { fill: #ef4444; }
+#carSvg .door {
+  fill: var(--muted);
+  transform-box: fill-box;
+  transition: transform 0.25s, fill 0.25s;
+}
+#carSvg .door.left  { transform-origin: 100% 0; }
+#carSvg .door.right { transform-origin: 0 0; }
+#carSvg .door.left.open  { transform: rotate(38deg); }
+#carSvg .door.right.open { transform: rotate(-38deg); }
+#carSvg .door.open { fill: #ef4444; }
+
+/* Température */
+.temp { flex: 0 0 auto; }
+.temp-head { display: flex; justify-content: space-between; align-items: baseline; }
+.temp-val { font-size: 4vh; font-weight: 800; font-variant-numeric: tabular-nums; }
+.gauge { height: 1.8vh; border-radius: 1vh; background: var(--border); margin: 1vh 0; overflow: hidden; }
+#gaugeFill { height: 100%; width: 0; border-radius: 1vh; background: #22c55e; transition: width 0.4s, background 0.4s; }
+
+/* Musique */
+.music { flex: 1; display: flex; flex-direction: column; gap: 1vh; }
+.track { font-size: 3.2vh; font-weight: 700; line-height: 1.15; }
+.player { display: flex; justify-content: space-between; gap: 1vw; margin: 0.6vh 0 1vh; }
+.player button {
+  flex: 1; font-size: 4vh; padding: 1.2vh 0;
+  background: var(--bg); color: var(--text);
+  border: 1px solid var(--border); border-radius: 2vh; cursor: pointer;
+}
+.player button:active { background: var(--accent); color: #fff; }
+.playlist { list-style: none; margin: 0; padding: 0; overflow: hidden; display: flex; flex-direction: column; gap: 0.8vh; }
+.playlist li {
+  font-size: 2.2vh; padding: 1vh 1vw; border-radius: 1.4vh;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  background: color-mix(in srgb, var(--muted) 12%, transparent);
+}
+.playlist li.current { background: var(--accent); color: #fff; font-weight: 700; }
+.playlist li.empty { color: var(--muted); background: none; padding-left: 0; }
+
+/* Barre d'applications */
+.dock { height: 15vh; display: flex; gap: 0.9vw; }
+.tile {
+  flex: 1;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 2.6vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 0.8vh;
+  color: var(--text); text-decoration: none;
+  font-size: 2.2vh; font-weight: 600;
+  transition: transform 0.12s, background 0.12s;
+}
+.tile .ico { font-size: 5.4vh; line-height: 1; }
+.tile:active { transform: scale(0.96); background: color-mix(in srgb, var(--accent) 30%, var(--card)); }
+
+/* Message temporaire */
+#toast {
+  position: fixed; left: 50%; bottom: 18vh;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--text); color: var(--bg);
+  padding: 1.4vh 2.2vw; border-radius: 2vh; font-size: 2.2vh;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
