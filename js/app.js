@@ -46,7 +46,9 @@ const DOOR_NAMES = {
 // ---------------------------------------------------------------
 // Utilitaires
 // ---------------------------------------------------------------
-const $ = (id) => document.getElementById(id);
+// Si un élément manque dans la page, on renvoie un élément « vide » au lieu
+// de planter : le reste de l'écran continue de fonctionner.
+const $ = (id) => document.getElementById(id) || document.createElement("div");
 
 function store(key, value) {
   try {
@@ -424,6 +426,11 @@ function buildApps() {
         e.preventDefault();
         if (assignable && hasBridge()) openPicker(app);
         else toast(app.name + " : à configurer dans js/app.js");
+      } else if (window.AUTOWILL_NATIVE && !hasBridge() && /^(intent|tel):/.test(link)) {
+        // Dans l'application Android sans le pont de lancement : on évite
+        // d'ouvrir une page d'erreur et on prévient simplement.
+        e.preventDefault();
+        toast(app.name + " : le lancement des applications arrive avec la mise à jour de l'application Android");
       }
     });
 
